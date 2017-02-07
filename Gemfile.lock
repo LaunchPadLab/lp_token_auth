@@ -1,0 +1,17 @@
+PATH
+  remote: .
+  specs:
+    lp_token_auth (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  lp_token_auth!
+
+BUNDLED WITH
+   1.12.5

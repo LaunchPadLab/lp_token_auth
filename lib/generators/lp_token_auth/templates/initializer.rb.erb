@@ -1,0 +1,16 @@
+LpTokenAuth.config do |config|
+
+  # The secret used when encrypting the JWT
+  #
+  config.secret = <%= secret_key %>
+
+  # The number of hours the token is active
+  # default: 7 * 24
+  #
+  config.expires = 7 * 24
+
+  # The encryption algorithm to use
+  # default: HS512
+  #
+  config.algorithm = 'HS512'
+end
