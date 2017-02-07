@@ -11,6 +11,7 @@ Add `gem lp_token_auth, git: 'https://github.com/launchpadlab/lp_token_auth.git'
 + `authenticate_request!` - This is a `before_action` to use in your controllers that will extract the token from the header and authenticate it before proceeding.
 + `authenticate!(token)` - This is called by `authenticate_request!` but is available to use if you ever need to manually authenticate a token.
 + `current_user` - This returns the current user identified by `authenticate!`. It is available after logging in the user or authenticating.
+3. All errors will return an instance of `LpTokenAuth::Error`
 
 ## Examples
 ### Controller

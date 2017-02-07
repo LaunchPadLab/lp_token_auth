@@ -3,7 +3,7 @@ require 'lp_token_auth/core'
 module LpTokenAuth
   module Controller
     def login(user)
-      token = LpTokenAuth::Core.issue_token(user.id)
+      token = LpTokenAuth.issue_token(user.id)
       authenticate! token
       token
     end
@@ -14,7 +14,7 @@ module LpTokenAuth
     end
 
     def authenticate!(token)
-      decoded = LpTokenAuth::Core.decode!(token)
+      decoded = LpTokenAuth.decode!(token)
       @current_user = User.find(decoded['id'])
     end
 

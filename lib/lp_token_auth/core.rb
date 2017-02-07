@@ -6,7 +6,7 @@ module LpTokenAuth
     def issue_token(id, **payload)
 
       check_id!(id)
-      
+
       payload[:id] = id
 
       unless payload.has_key? :exp
@@ -36,7 +36,7 @@ module LpTokenAuth
     end
 
     def check_id!(id)
-      unless id.is_a? String || id.is_a? Integer
+      unless id.is_a?(String) || id.is_a?(Integer)
         raise LpTokenAuth::Error, "id must be a string or integer, you provided #{id}"
       end
     end

@@ -7,8 +7,8 @@ module LpTokenAuth
 
       desc 'Creates a LpTokenAuth initializer in your application.'
 
-      def copy_initializer
-        copy_file 'initializer.rb', 'config/initializers/lp_token_auth.rb'
+      def create_initializer
+        template 'initializer.rb.erb', 'config/initializers/lp_token_auth.rb'
       end
 
       def secret_key
