@@ -2,7 +2,7 @@
 Simple token authentication logic with JWTs for Rails apps. No baked in routing, just the barebones logic you need to implement token authentication with JWTs.
 
 ## Installation
-Add `gem lp_token_auth, git: 'https://github.com/launchpadlab/lp_token_auth.git',` to your Gemfile and run `bundle install`.
+Add `gem lp_token_auth, github: 'launchpadlab/lp_token_auth'` to your Gemfile and run `bundle install`.
 
 ## Usage
 1. Run `bundle exec rails generate lp_token_auth:install` to generate an initializer at `../config/initalizers/lp_token_auth.rb`. See the initializer for more details about what is configurable.
