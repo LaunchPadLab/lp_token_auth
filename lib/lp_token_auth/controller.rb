@@ -3,7 +3,7 @@ require 'lp_token_auth/core'
 module LpTokenAuth
   module Controller
     def login(user)
-      token = LpTokenAuth::Core.issue_token(user)
+      token = LpTokenAuth::Core.issue_token(user.id)
       authenticate! token
       token
     end

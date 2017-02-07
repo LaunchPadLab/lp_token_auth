@@ -4,6 +4,9 @@ require 'lp_token_auth/error'
 module LpTokenAuth
   class << self
     def issue_token(id, **payload)
+
+      check_id!(id)
+      
       payload[:id] = id
 
       unless payload.has_key? :exp
@@ -29,6 +32,12 @@ module LpTokenAuth
         raise LpTokenAuth::Error, msg
       rescue StandardError => msg
         raise LpTokenAuth::Error, msg
+      end
+    end
+
+    def check_id!(id)
+      unless id.is_a? String || id.is_a? Integer
+        raise LpTokenAuth::Error, "id must be a string or integer, you provided #{id}"
       end
     end
   end
