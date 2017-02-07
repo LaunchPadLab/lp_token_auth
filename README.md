@@ -1,5 +1,5 @@
-# LP Confirmable
-Simple confirmable logic for Rails apps. No baked in routing or mailers, just the barebones logic and migration you need to implement confirmable logic for your users.
+# LP Token Auth
+Simple token authentication logic with JWTs for Rails apps. No baked in routing, just the barebones logic you need to implement token authentication with JWTs.
 
 ## Installation
 Add `gem lp_token_auth, git: 'https://github.com/launchpadlab/lp_token_auth.git',` to your Gemfile and run `bundle install`.
