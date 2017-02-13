@@ -5,7 +5,13 @@ module LpTokenAuth
     def login(user)
       token = LpTokenAuth.issue_token(user.id)
       authenticate! token
-      token
+
+      return token unless LpTokenAuth.config.cookie == true
+
+      cookies[LpTokenAuth.config.cookie_name] = {
+        value: token,
+        expires: LpTokenAuth.config.expires.hours.from_now,
+      }
     end
 
     def authenticate_request!

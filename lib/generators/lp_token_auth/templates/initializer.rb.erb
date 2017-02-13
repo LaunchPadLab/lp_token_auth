@@ -13,4 +13,15 @@ LpTokenAuth.config do |config|
   # default: HS512
   #
   config.algorithm = 'HS512'
+
+  # Whether to place the token in a cookie or make the developer responsible for
+  # sending to the client
+  # default: true
+  #
+  config.cookie = true
+
+  # If `config.cookie = true`, the name of the cookie.
+  # default: :auth_token
+  #
+  config.cookie_name = :auth_token
 end
