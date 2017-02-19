@@ -5,43 +5,30 @@ module LpTokenAuth
     def login(user)
       token = LpTokenAuth.issue_token(user.id)
       set_current_user user
-
-      if LpTokenAuth.config.token_transport.include? :cookie
-        cookies[:lp_auth] = {
-          value: token,
-          expires: LpTokenAuth.config.expires.hours.from_now,
-        }
-      end
-
-      if LpTokenAuth.config.token_transport.include? :header
-        response.headers['X-LP-AUTH'] = token
-      end
-
+      set_token token
       return token
     end
 
     def logout
-      if LpTokenAuth.config.token_transport.include? :cookie
-        cookies.delete :lp_auth
-      end
+      clear_token
     end
 
     def authenticate_request!
-      token = cookie_token || header_token
-      begin
-        authenticate_token! token
-      rescue LpTokenAuth::Error => error
-        raise error
-      rescue => error
-        raise LpTokenAuth::Error, error
-      ensure
-        logout
-      end
+      token = get_token
+      authenticate_token! token
     end
 
     def authenticate_token!(token)
-      decoded = LpTokenAuth.decode!(token)
-      @current_user = User.find(decoded['id'])
+      begin
+        decoded = LpTokenAuth.decode!(token)
+        @current_user = User.find(decoded['id'])
+      rescue LpTokenAuth::Error => error
+        logout
+        raise error
+      rescue => error
+        logout
+        raise LpTokenAuth::Error, error
+      end
     end
 
     def current_user
@@ -49,8 +36,33 @@ module LpTokenAuth
     end
 
     private
+
     def set_current_user(user)
       @current_user = user
+    end
+
+    def set_token(token)
+      if LpTokenAuth.config.token_transport.include? :cookie
+        cookies[:lp_auth] = token
+        # cookies[:lp_auth] = {
+        #   value: token,
+        #   expires: LpTokenAuth.config.expires.hours.from_now,
+        # }
+      end
+
+      if LpTokenAuth.config.token_transport.include? :header
+        response.headers['X-LP-AUTH'] = token
+      end
+    end
+
+    def clear_token
+      if LpTokenAuth.config.token_transport.include? :cookie
+        cookies.delete :lp_auth
+      end
+    end
+
+    def get_token
+      cookie_token || header_token
     end
 
     def cookie_token
