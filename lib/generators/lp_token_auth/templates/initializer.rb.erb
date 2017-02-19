@@ -13,4 +13,10 @@ LpTokenAuth.config do |config|
   # default: HS512
   #
   config.algorithm = 'HS512'
+
+  # Where to include the token in the response, must be an array, options are
+  # :cookie, :header
+  # default: [:cookie]
+  #
+  config.token_transport = [:cookie]
 end
