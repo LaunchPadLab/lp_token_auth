@@ -13,15 +13,16 @@ module LpTokenAuth
       clear_token
     end
 
-    def authenticate_request!
+    def authenticate_request!(resource=:user)
       token = get_token
-      authenticate_token! token
+      authenticate_token! token, resource
     end
 
-    def authenticate_token!(token)
+    def authenticate_token!(token, resource=:user)
       begin
         decoded = LpTokenAuth.decode!(token)
-        @current_user = User.find(decoded['id'])
+        klass = resource.to_s.classify.constantize
+        @current_user = klass.find(decoded['id'])
       rescue LpTokenAuth::Error => error
         logout
         raise error
@@ -44,10 +45,6 @@ module LpTokenAuth
     def set_token(token)
       if LpTokenAuth.config.token_transport.include? :cookie
         cookies[:lp_auth] = token
-        # cookies[:lp_auth] = {
-        #   value: token,
-        #   expires: LpTokenAuth.config.expires.hours.from_now,
-        # }
       end
 
       if LpTokenAuth.config.token_transport.include? :header
