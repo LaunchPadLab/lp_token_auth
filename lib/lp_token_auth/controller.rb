@@ -2,11 +2,11 @@ require 'lp_token_auth/core'
 
 module LpTokenAuth
   module Controller
-    def login(user)
+    def login(user, options={})
       token = LpTokenAuth.issue_token(user.id)
       set_current_user user
-      set_token token
-      return token
+      set_token token, options
+      token
     end
 
     def logout
@@ -42,9 +42,9 @@ module LpTokenAuth
       @current_user = user
     end
 
-    def set_token(token)
+    def set_token(token, options={})
       if LpTokenAuth.config.token_transport.include? :cookie
-        cookies[:lp_auth] = token
+        cookies[:lp_auth] = { token: token, options: options }
       end
 
       if LpTokenAuth.config.token_transport.include? :header
@@ -63,7 +63,7 @@ module LpTokenAuth
     end
 
     def cookie_token
-      cookies[:lp_auth]
+      cookies[:lp_auth] || cookies[:lp_token_auth][:token]
     end
 
     def header_token
