@@ -1,8 +1,9 @@
 require 'lp_token_auth/core'
+require 'json'
 
 module LpTokenAuth
   module Controller
-    def login(user, options={})
+    def login(user, **options)
       token = LpTokenAuth.issue_token(user.id)
       set_current_user user
       set_token token, options
@@ -43,12 +44,14 @@ module LpTokenAuth
     end
 
     def set_token(token, options={})
+      lp_auth_cookie = { token: token, options: options }.to_json
+
       if LpTokenAuth.config.token_transport.include? :cookie
-        cookies[:lp_auth] = { token: token, options: options }
+        cookies[:lp_auth] = lp_auth_cookie
       end
 
       if LpTokenAuth.config.token_transport.include? :header
-        response.headers['X-LP-AUTH'] = token
+        response.headers['X-LP-AUTH'] = lp_auth_cookie
       end
     end
 
@@ -63,7 +66,12 @@ module LpTokenAuth
     end
 
     def cookie_token
-      cookies[:lp_auth] || cookies[:lp_token_auth][:token]
+      parse_cookie_token || cookies[:lp_auth]
+    end
+
+    def parse_cookie_token
+      parsed_cookie = JSON.parse(cookies[:lp_auth]).with_indifferent_access
+      parsed_cookie.fetch(:token, nil)
     end
 
     def header_token
