@@ -1,3 +1,5 @@
+require 'json'
+
 module LpTokenAuth
   class AuthToken
     attr_accessor :cookies
