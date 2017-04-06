@@ -2,10 +2,11 @@ require 'json'
 
 module LpTokenAuth
   class AuthToken
-    attr_accessor :cookies
+    attr_accessor :cookies, :request_headers
 
     def initialize(args={})
       @cookies = args[:cookies]
+      @request_headers = args[:headers]
     end
 
     def cookie_token
@@ -28,7 +29,7 @@ module LpTokenAuth
     end
 
     def fetch_header_auth
-      request.headers.fetch('Authorization', '').split(' ').last
+      request_headers.fetch('Authorization', '').split(' ').last
     end
 
     def parse_header_token

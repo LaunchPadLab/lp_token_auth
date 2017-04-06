@@ -63,7 +63,7 @@ module LpTokenAuth
     end
 
     def get_token
-      auth_token ||= AuthToken.new(cookies: cookies)
+      auth_token ||= AuthToken.new(cookies: cookies, request_headers: request.headers)
       auth_token.cookie_token || auth_token.header_token
     end
   end
