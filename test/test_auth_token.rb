@@ -9,6 +9,10 @@ def cookie
   { lp_auth: 'abc123' }
 end
 
+def header
+  { 'Authorization' => 'abc123' }
+end
+
 describe '.cookie_token' do
   describe 'when a token is nested under \'token\' key' do
     before do
@@ -29,6 +33,30 @@ describe '.cookie_token' do
 
     it 'returns a token' do
       assert_equal @token.cookie_token, cookie[:lp_auth]
+    end
+  end
+end
+
+describe '.header_token' do
+  describe 'when a token is nested under \'token\' key' do
+    before do
+      @token = LpTokenAuth::AuthToken.new(
+        request_headers: { 'Authorization' => "Token #{token_with_options.to_json}" }
+      )
+    end
+
+    it 'returns a token' do
+      assert_equal @token.header_token, token_with_options[:token]
+    end
+  end
+
+  describe 'when a token is not nested' do
+    before do
+      @token = LpTokenAuth::AuthToken.new(request_headers: header)
+    end
+
+    it 'returns a token' do
+      assert_equal @token.header_token, cookie[:lp_auth]
     end
   end
 end
