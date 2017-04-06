@@ -1,4 +1,5 @@
 require 'lp_token_auth/core'
+require 'lp_token_auth/auth_token'
 require 'json'
 
 module LpTokenAuth
@@ -62,20 +63,8 @@ module LpTokenAuth
     end
 
     def get_token
-      cookie_token || header_token
-    end
-
-    def cookie_token
-      parse_cookie_token || cookies[:lp_auth]
-    end
-
-    def parse_cookie_token
-      parsed_cookie = JSON.parse(cookies[:lp_auth]).with_indifferent_access
-      parsed_cookie.fetch(:token, nil)
-    end
-
-    def header_token
-      request.headers.fetch('Authorization', '').split(' ').last
+      auth_token ||= AuthToken.new(cookies: cookies)
+      auth_token.cookie_token || auth_token.header_token
     end
   end
 end
