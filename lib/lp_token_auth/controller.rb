@@ -3,7 +3,7 @@ require 'json'
 
 module LpTokenAuth
   module Controller
-    def login(user, **context)
+    def login(user, context='')
       token = LpTokenAuth.issue_token(user.id)
       set_current_user user
       set_token token, context
@@ -43,7 +43,7 @@ module LpTokenAuth
       @current_user = user
     end
 
-    def set_token(token, context={})
+    def set_token(token, context)
       lp_auth_cookie = { token: token, context: context }.to_json
 
       if LpTokenAuth.config.token_transport.include? :cookie
