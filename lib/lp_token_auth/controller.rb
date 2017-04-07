@@ -66,25 +66,24 @@ module LpTokenAuth
     end
 
     def cookie_token
-      return nil unless cookies[:lp_auth]
-      parse_token(:cookie) || cookies[:lp_auth]
+      parse_token(cookies[:lp_auth])
     end
 
     def header_token
-      parse_token(:header) || fetch_header_auth
+      parse_token(fetch_header_auth)
     end
 
     def fetch_header_auth
       request_headers.fetch('Authorization', '').split(' ').last
     end
 
-    def parse_token(type)
-      token_path = type == :cookie ? cookies[:lp_auth] : fetch_header_auth
+    def parse_token(token_path)
+      return nil unless token_path
       begin
         parsed = JSON.parse(token_path)
         parsed.fetch('token', nil)
       rescue JSON::ParserError
-        return nil
+        token_path
       end
     end
   end
