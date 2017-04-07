@@ -88,12 +88,12 @@ class ControllerTest < MiniTest::Test
     describe 'with a header token' do
       before do
         initialize_token_config(:header)
+        self.cookies = {}
       end
 
       describe 'when the header is an object' do
         before do
           request_hash = { headers: header_obj }
-          self.cookies = {}
           self.request = OpenStruct.new(request_hash)
         end
 
@@ -105,7 +105,6 @@ class ControllerTest < MiniTest::Test
       describe 'when to header is a string' do
         before do
           request_hash = { headers: header_str }
-          self.cookies = {}
           self.request = OpenStruct.new(request_hash)
         end
 
