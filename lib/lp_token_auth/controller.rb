@@ -74,7 +74,7 @@ module LpTokenAuth
     end
 
     def fetch_header_auth
-      request_headers.fetch('Authorization', '').split(' ').last
+      request.headers.fetch('Authorization', '').split(' ').last
     end
 
     def parse_token(token_path)
