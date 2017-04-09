@@ -45,12 +45,12 @@ module LpTokenAuth
 
     def set_token(token, context)
       lp_auth_cookie = { token: token, context: context }.to_json
-      cookies[:lp_auth] = lp_auth_cookie if includes_transport?(:cookie)
-      response.headers['X-LP-AUTH'] = lp_auth_cookie if includes_transport?(:header)
+      cookies[:lp_auth] = lp_auth_cookie if has_transport?(:cookie)
+      response.headers['X-LP-AUTH'] = lp_auth_cookie if has_transport?(:header)
     end
 
     def clear_token
-      cookies.delete :lp_auth if includes_transport?(:cookie)
+      cookies.delete :lp_auth if has_transport?(:cookie)
     end
 
     def get_token
@@ -58,12 +58,12 @@ module LpTokenAuth
     end
 
     def cookie_token
-      return nil unless includes_transport?(:cookie)
+      return nil unless has_transport?(:cookie)
       parse_token(cookies[:lp_auth])
     end
 
     def header_token
-      return nil unless includes_transport?(:header)
+      return nil unless has_transport?(:header)
       parse_token(fetch_header_auth)
     end
 
@@ -81,7 +81,7 @@ module LpTokenAuth
       end
     end
 
-    def includes_transport?(type)
+    def has_transport?(type)
       LpTokenAuth.config.token_transport.include?(type)
     end
   end
