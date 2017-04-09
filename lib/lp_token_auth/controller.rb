@@ -45,31 +45,25 @@ module LpTokenAuth
 
     def set_token(token, context)
       lp_auth_cookie = { token: token, context: context }.to_json
-
-      if LpTokenAuth.config.token_transport.include? :cookie
-        cookies[:lp_auth] = lp_auth_cookie
-      end
-
-      if LpTokenAuth.config.token_transport.include? :header
-        response.headers['X-LP-AUTH'] = lp_auth_cookie
-      end
+      cookies[:lp_auth] = lp_auth_cookie if includes_transport?(:cookie)
+      response.headers['X-LP-AUTH'] = lp_auth_cookie if includes_transport?(:header)
     end
 
     def clear_token
-      if LpTokenAuth.config.token_transport.include? :cookie
-        cookies.delete :lp_auth
-      end
+      cookies.delete :lp_auth if includes_transport?(:cookie)
     end
 
     def get_token
-      cookie_token || header_token
+      [cookie_token, header_token].compact.first
     end
 
     def cookie_token
+      return nil unless includes_transport?(:cookie)
       parse_token(cookies[:lp_auth])
     end
 
     def header_token
+      return nil unless includes_transport?(:header)
       parse_token(fetch_header_auth)
     end
 
@@ -85,6 +79,10 @@ module LpTokenAuth
       rescue JSON::ParserError
         token_path
       end
+    end
+
+    def includes_transport?(type)
+      LpTokenAuth.config.token_transport.include?(type)
     end
   end
 end
