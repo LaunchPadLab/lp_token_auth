@@ -2,7 +2,7 @@ require 'lp_token_auth/core'
 require 'json'
 
 module LpTokenAuth
-  # `LpTokenAuth::Controller` contains the core functionality of the `LpTokenAuth` gem.
+  # `LpTokenAuth::Controller` contains the primary functionality of the `LpTokenAuth` gem.
   # The `Controller` module contains the logic around setting and clearing tokens for 
   # a resource.
   module Controller
