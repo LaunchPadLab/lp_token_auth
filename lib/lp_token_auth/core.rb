@@ -4,10 +4,10 @@ require 'lp_token_auth/error'
 module LpTokenAuth
   class << self
     
-    # Encodes the JWT token
+    # Encodes the JWT token with the payload
     # @param [Integer, String] id the id of the resource
     # @param [Symbol=>String] payload keyword arguments required to create the token
-    # @return [String] token
+    # @return [String] encoded token
     def issue_token(id, **payload)
 
       check_id!(id)
@@ -28,7 +28,7 @@ module LpTokenAuth
     # Decodes the JWT token
     # @param [String] token the token to decode
     # @raise [LpTokenAuth::Error] if the token is expired, or if any errors occur during decoding
-    # @return [String] token
+    # @return [Array] decoded token
     def decode!(token)
       begin
         JWT.decode(
@@ -47,6 +47,7 @@ module LpTokenAuth
     # Determines if the `id` provided is either a `String` or an `Integer`
     # @param [Integer, String] id the identifier of the resource
     # @raise [LpTokenAuth::Error] if the `id` is not a `String` or `Integer`
+    # @return [nil]
     def check_id!(id)
       unless id.is_a?(String) || id.is_a?(Integer)
         raise LpTokenAuth::Error, "id must be a string or integer, you provided #{id}"
