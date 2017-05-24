@@ -4,7 +4,7 @@ require 'json'
 module LpTokenAuth
   # `LpTokenAuth::Controller` contains the primary functionality of the `LpTokenAuth` gem.
   # The `Controller` module contains the logic around setting and clearing tokens for 
-  # a resource.
+  # a resource, as well as authenticating requests with a token.
   module Controller
     
     # Creates and sets a JWT token for a resource
