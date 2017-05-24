@@ -2,11 +2,15 @@ require 'jwt'
 require 'lp_token_auth/error'
 
 module LpTokenAuth
+  # `LpTokenAuth::Core` provides the core functionality of the LpTokenAuth gem.
+  # The `Core` module performs all of the logic of encoding and decoding JWT tokens,
+  # and raises appropriate error messages if any errors occur.
   class << self
     
     # Encodes the JWT token with the payload
     # @param [Integer, String] id the id of the resource
     # @param [Symbol=>String] payload keyword arguments required to create the token
+    # @raise [LpTokenAuth::Error] if the `id` is not a `String` or `Integer`
     # @return [String] encoded token
     def issue_token(id, **payload)
 
