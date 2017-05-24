@@ -7,7 +7,7 @@ module LpTokenAuth
   class << self
     
     # Encodes the JWT token with the payload
-    # @param [Integer, String] id the id of the resource
+    # @param [Integer, String] id the identifier of the resource
     # @param [Symbol=>String] payload keyword arguments required to create the token
     # @raise [LpTokenAuth::Error] if the `id` is not a `String` or `Integer`
     # @return [String] encoded token
