@@ -1,3 +1,4 @@
 module LpTokenAuth
-  VERSION = '0.2.0'
+  # # Current version of LpTokenAuth
+  VERSION = '0.2.1'.freeze
 end
