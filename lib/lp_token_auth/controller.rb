@@ -6,7 +6,7 @@ module LpTokenAuth
   # The `Controller` module contains the logic around setting and clearing tokens for 
   # a resource, as well as authenticating requests with a token.
   module Controller
-    
+
     # Creates and sets a JWT token for a resource
     # @return [String] encoded token
     def login(user, context='')
