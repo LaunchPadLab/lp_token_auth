@@ -2,7 +2,15 @@ require 'lp_token_auth/core'
 require 'json'
 
 module LpTokenAuth
+  # `LpTokenAuth::Controller` contains the primary functionality of the `LpTokenAuth` gem.
+  # The `Controller` module contains the logic around setting and clearing tokens for 
+  # a resource, as well as authenticating requests with a token.
   module Controller
+
+    # Creates and sets a JWT token for a resource
+    # @param [Object] user the resource
+    # @param [String] context any contextual information necessary for authentication
+    # @return [String] encoded token
     def login(user, context='')
       token = LpTokenAuth.issue_token(user.id)
       set_current_user user
@@ -10,15 +18,26 @@ module LpTokenAuth
       token
     end
 
+    # Deletes the `lp_auth` key from the `cookies` hash
+    # @return [nil]
     def logout
       clear_token
     end
 
+    # Retrieves and authenticates the token for the given resource
+    # @param [Symbol, String] resource the symbolized or stringified class of the resource
+    # @raise [LpTokenAuth::Error] if the token is invalid or otherwise unable to be decoded
+    # @return [Object] @current_user
     def authenticate_request!(resource=:user)
       token = get_token
       authenticate_token! token, resource
     end
 
+    # Decodes the token, and finds and sets the current user
+    # @param [String] token the token object
+    # @param [Symbol, String] resource the symbolized or stringified class of the resource
+    # @raise [LpTokenAuth::Error] if the token is invalid or otherwise unable to decoded
+    # @return [Object] @current_user
     def authenticate_token!(token, resource=:user)
       begin
         decoded = LpTokenAuth.decode!(token)
@@ -33,6 +52,8 @@ module LpTokenAuth
       end
     end
 
+    # Helper method to retrieve the current user
+    # @return [Object] @current_user
     def current_user
       @current_user
     end
