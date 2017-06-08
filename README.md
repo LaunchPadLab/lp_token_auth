@@ -21,7 +21,7 @@ class AuthenticatingController < ApplicationController
 
   before_action :authenticate_request!
 
-  rescue_from LpTokenAuth::AuthError, with: :unauthorized
+  rescue_from LpTokenAuth::Error, with: :unauthorized
 
   protected
 
