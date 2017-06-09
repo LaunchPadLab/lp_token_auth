@@ -41,8 +41,7 @@ module LpTokenAuth
     def authenticate_token!(token, resource=:user)
       begin
         decoded = LpTokenAuth.decode!(token)
-        klass = resource.to_s.classify.constantize
-        @current_user = klass.find(decoded['id'])
+        @current_user = find_resource(resource, decoded)
       rescue LpTokenAuth::Error => error
         logout
         raise error
@@ -104,6 +103,11 @@ module LpTokenAuth
 
     def has_transport?(type)
       LpTokenAuth.config.token_transport.include?(type)
+    end
+
+    def find_resource(resource, decoded)
+      klass = resource.to_s.classify.constantize
+      klass.find(decoded['id'])
     end
   end
 end
