@@ -1,6 +1,7 @@
 [![Documentation](http://img.shields.io/badge/docs-rdoc.info-blue.svg)](http://www.rubydoc.info/github/LaunchPadLab/lp_token_auth)
 [![Build Status](https://travis-ci.org/LaunchPadLab/lp_token_auth.svg?branch=master)](https://travis-ci.org/LaunchPadLab/lp_token_auth)
-[![Test Coverage](https://codeclimate.com/github/LaunchPadLab/lp_token_auth/badges/coverage.svg)](https://codeclimate.com/github/LaunchPadLab/lp_token_auth/coverage)
+[![Test Coverage](https://codeclimate.com/repos/593aabffc759c90269001912/badges/1e40a4f9bc94a46fc508/coverage.svg)](https://codeclimate.com/repos/593aabffc759c90269001912/coverage)
+[![Code Climate](https://codeclimate.com/repos/593aabffc759c90269001912/badges/1e40a4f9bc94a46fc508/gpa.svg)](https://codeclimate.com/repos/593aabffc759c90269001912/feed)
 
 # LP Token Auth
 Simple token authentication logic with JWTs for Rails apps. No baked in routing, just the barebones logic you need to implement token authentication with JWTs.
