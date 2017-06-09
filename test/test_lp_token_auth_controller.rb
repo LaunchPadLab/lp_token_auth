@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'lp_token_auth/controller'
+require 'test_helper'
 
 def token_with_context
   { token: 'xyz987', context: 'admin' }

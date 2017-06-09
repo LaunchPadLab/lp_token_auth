@@ -1,5 +1,4 @@
-require 'minitest/autorun'
-require 'lp_token_auth'
+require 'test_helper'
 
 def initialize_config
   LpTokenAuth.config do |config|
