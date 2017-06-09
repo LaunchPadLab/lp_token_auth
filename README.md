@@ -5,6 +5,10 @@
 # LP Token Auth
 Simple token authentication logic with JWTs for Rails apps. No baked in routing, just the barebones logic you need to implement token authentication with JWTs.
 
+* [Installation](#installation)
+* [Usage](#usage)
+* [Examples](#examples)
+
 ## Installation
 Add this line to your application's Gemfile:
 
@@ -61,6 +65,8 @@ fetch('localhost:3000/authenticated-route', {
 ## Development
 + `git clone git@github.com:LaunchPadLab/lp_token_auth.git`
 + `bundle install`
-+ Test with `rake`
+
+### Testing
++ Run tests with `rake`
 
 ## Authenticate away!
