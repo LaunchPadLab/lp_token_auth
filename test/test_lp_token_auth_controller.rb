@@ -84,6 +84,14 @@ class ControllerTest < MiniTest::Test
           end
         end
       end
+
+      it 'sets the current_user' do
+        LpTokenAuth.stub :decode!, 'data' => token_str do
+          stub :find_resource, current_user do
+            assert_equal MockUser.new.id, current_user.id
+          end
+        end
+      end
     end
 
     describe 'with an invalid token' do
