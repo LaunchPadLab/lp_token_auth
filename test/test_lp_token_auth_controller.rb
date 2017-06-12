@@ -41,7 +41,7 @@ end
 
 class MiniTest::Test
   include LpTokenAuth::Controller
-  attr_accessor :cookies, :request
+  attr_accessor :cookies, :request, :current_user
 end
 
 class ControllerTest < MiniTest::Test
@@ -54,6 +54,62 @@ class ControllerTest < MiniTest::Test
 
     it 'sets current user and token' do
       assert login(MockUser.new, 'admin')
+    end
+  end
+
+  describe '.logout' do
+    before do
+      initialize_token_config(:cookie)
+      self.cookies = cookie_str
+    end
+
+    it 'deletes the token' do
+      logout
+      assert self.cookies = {}
+    end
+  end
+
+  describe '.authenticate_request!' do
+    before do
+      initialize_token_config(:cookie)
+      self.cookies = cookie_str
+      self.current_user = MockUser.new
+    end
+
+    describe 'with a valid token and resource' do
+      it 'authenticates the request' do
+        LpTokenAuth.stub :decode!, 'data' => token_str do
+          stub :find_resource, current_user do
+            assert authenticate_request!(:mock_user)
+          end
+        end
+      end
+
+      it 'sets the current_user' do
+        LpTokenAuth.stub :decode!, 'data' => token_str do
+          stub :find_resource, current_user do
+            assert_equal MockUser.new.id, current_user.id
+          end
+        end
+      end
+    end
+
+    describe 'with an invalid token' do
+      it 'raises an error' do
+        assert_raises LpTokenAuth::Error do
+          authenticate_request!(:mock_user)
+        end
+      end
+    end
+
+    describe 'with an invalid resource' do
+      it 'raises an error' do
+        LpTokenAuth.stub :decode!, 'data' => token_str do
+          assert_raises LpTokenAuth::Error do
+            authenticate_request!(:mock_user)
+          end
+        end
+      end
     end
   end
 

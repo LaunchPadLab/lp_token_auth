@@ -2,4 +2,3 @@ lp_token_auth-*.gem
 doc
 .yardoc
 coverage
-Gemfile.lock
