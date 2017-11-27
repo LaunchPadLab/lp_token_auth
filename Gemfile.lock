@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lp_token_auth (0.2.5)
+    lp_token_auth (0.2.6)
       jwt (>= 1.5.6)
 
 GEM

@@ -79,7 +79,7 @@ class ControllerTest < MiniTest::Test
     describe 'with a valid token and resource' do
       it 'authenticates the request' do
         LpTokenAuth.stub :decode!, 'data' => token_str do
-          stub :find_resource, current_user do
+          stub :find_lp_resource, current_user do
             assert authenticate_request!(:mock_user)
           end
         end
@@ -87,7 +87,7 @@ class ControllerTest < MiniTest::Test
 
       it 'sets the current_user' do
         LpTokenAuth.stub :decode!, 'data' => token_str do
-          stub :find_resource, current_user do
+          stub :find_lp_resource, current_user do
             assert_equal MockUser.new.id, current_user.id
           end
         end
