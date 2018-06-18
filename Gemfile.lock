@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lp_token_auth (0.2.6)
+    lp_token_auth (0.3.0)
       jwt (>= 1.5.6)
 
 GEM
@@ -31,4 +31,4 @@ DEPENDENCIES
   simplecov
 
 BUNDLED WITH
-   1.14.4
+   1.16.1
