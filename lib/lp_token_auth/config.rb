@@ -9,15 +9,20 @@ module LpTokenAuth
     # * `token_transport` is a string indicating where to include the token in the HTTP response
     attr_accessor :algorithm, :expires, :secret, :token_transport
 
+    # Provides default values to token options
     DEFAULT_VALUES = {
       algorithm: 'HS512',
       expires: (7 * 24),
       token_transport: [:cookie],
     }
 
+    # Retrieves value for token option, either as set by the application, or the default
+    # @param [Symbol] key the token option name
+    # @raise [LpTokenAuth::Error] if the option has not been set by the application and a default value does not exist
+    # @return [String,Integer] the value of the token option
     def get_option(key)
       option = send(key) || DEFAULT_VALUES[key]
-      raise LpTokenAuth::Error "Missing config option: #{ key }" unless option
+      raise LpTokenAuth::Error "Missing config option value: #{ key }" unless option
       option
     end
   end
