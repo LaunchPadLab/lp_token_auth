@@ -26,10 +26,24 @@ Or install it yourself as:
 ## Usage
 1. Run `bundle exec rails generate lp_token_auth:install` to generate an initializer at `../config/initalizers/lp_token_auth.rb`. See the initializer for more details about what is configurable.
 2. In the most senior controller that you want to authenticate, add `include LpTokenAuth::Controller`. This gives you 4 methods that are available in this and all child controllers:
-+ `login(user)` - Given a valid user, this will generate a JWT and return it. The token should be sent to the client and passed in the 'Authorization' header in all subsequent requests to the server.
-+ `authenticate_request!` - This is a `before_action` to use in your controllers that will extract the token from the header and authenticate it before proceeding.
-+ `authenticate!(token)` - This is called by `authenticate_request!` but is available to use if you ever need to manually authenticate a token.
-+ `current_user` - This returns the current user identified by `authenticate!`. It is available after logging in the user or authenticating.
+  + `login(user)` - Given a valid user, this will generate a JWT and return it. The token should be sent to the client and passed in the 'Authorization' header in all subsequent requests to the server.
+  + `authenticate_request!` - This is a `before_action` to use in your controllers that will extract the token from the header and authenticate it before proceeding. If the resource class that you're using is not the default `User`, you may override the `authenticate_request!` method by creating a custom `before_action`, in which you may pass in the resource class name.
+
+  ```
+    class AuthenticationController < ApplicationController
+      include LpTokenAuth::Controller
+
+      before_action :authenticate_request
+
+      protected
+
+      def authenticate_request
+        authenticate_request!('AdminUser')
+      end 
+    end
+  ```
+  + `authenticate!(token)` - This is called by `authenticate_request!` but is available to use if you ever need to manually authenticate a token.
+  + `current_user` - This returns the current user identified by `authenticate!`. It is available after logging in the user or authenticating.
 3. All errors will return an instance of `LpTokenAuth::Error`
 
 ## Examples
@@ -69,5 +83,11 @@ fetch('localhost:3000/authenticated-route', {
 
 ### Testing
 + Run tests with `rake`
+
+## FAQ
+
+### Can I use this without ActiveRecord?
+
+Almost! There is a slight dependence on the ActiveRecord method `find`, which is used in order to decode a token based on the resource's `id`. The current workaround is to make sure the resource class you're using implements `find`, and has either a column `id` or implements a method called `id`.
 
 ## Authenticate away!
