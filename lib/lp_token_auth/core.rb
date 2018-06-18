@@ -18,13 +18,13 @@ module LpTokenAuth
       payload[:id] = id
 
       unless payload.has_key? :exp
-        payload[:exp] = (Time.now + LpTokenAuth.config.expires * 60 * 60).to_i
+        payload[:exp] = (Time.now + LpTokenAuth.config.get_option(:expires) * 60 * 60).to_i
       end
 
       JWT.encode(
         payload,
-        LpTokenAuth.config.secret,
-        LpTokenAuth.config.algorithm
+        LpTokenAuth.config.get_option(:secret),
+        LpTokenAuth.config.get_option(:algorithm)
       )
     end
 
@@ -36,9 +36,9 @@ module LpTokenAuth
       begin
         JWT.decode(
           token,
-          LpTokenAuth.config.secret,
+          LpTokenAuth.config.get_option(:secret),
           true,
-          { algorithm: LpTokenAuth.config.algorithm }
+          algorithm: LpTokenAuth.config.get_option(:algorithm)
         ).first
       rescue JWT::ExpiredSignature => msg
         raise LpTokenAuth::Error, msg

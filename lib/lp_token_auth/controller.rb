@@ -102,7 +102,7 @@ module LpTokenAuth
     end
 
     def has_transport?(type)
-      LpTokenAuth.config.token_transport.include?(type)
+      LpTokenAuth.config.get_option(:token_transport).include?(type)
     end
 
     def find_lp_resource(resource, decoded)
