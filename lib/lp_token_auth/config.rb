@@ -1,3 +1,5 @@
+require 'lp_token_auth/error'
+
 module LpTokenAuth
   # `LpTokenAuth::Config` manages the configuration options for the token.
   # These can be set with the initializer provided with the generator.
