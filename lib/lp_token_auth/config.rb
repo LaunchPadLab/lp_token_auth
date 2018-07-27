@@ -24,7 +24,7 @@ module LpTokenAuth
     # @return [String,Integer] the value of the token option
     def get_option(key)
       option = send(key) || DEFAULT_VALUES[key]
-      raise LpTokenAuth::Error "Missing config option value: #{ key }" unless option
+      raise StandardError "Missing config option value: #{ key }" unless option
       option
     end
   end
