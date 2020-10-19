@@ -39,10 +39,10 @@ Or install it yourself as:
 
       def authenticate_request
         authenticate_request!('AdminUser')
-      end 
+      end
     end
   ```
-  + `authenticate!(token)` - This is called by `authenticate_request!` but is available to use if you ever need to manually authenticate a token.
+  + `authenticate_token!(token)` - This is called by `authenticate_request!` but is available to use if you ever need to manually authenticate a token.
   + `current_user` - This returns the current user identified by `authenticate!`. It is available after logging in the user or authenticating.
 3. All errors will return an instance of `LpTokenAuth::Error`
 
