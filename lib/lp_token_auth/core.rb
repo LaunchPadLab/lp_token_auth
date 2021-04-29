@@ -1,4 +1,5 @@
 require 'jwt'
+require 'jwe'
 require 'lp_token_auth/error'
 
 module LpTokenAuth
@@ -21,19 +22,22 @@ module LpTokenAuth
         payload[:exp] = (Time.now + LpTokenAuth.config.get_option(:expires) * 60 * 60).to_i
       end
 
-      JWT.encode(
+      jwt = JWT.encode(
         payload,
         LpTokenAuth.config.get_option(:secret),
         LpTokenAuth.config.get_option(:algorithm)
       )
+
+      JWE.encrypt(jwt, ENV['JWE_PRIVATE_KEY'], enc: 'A256KW')
     end
 
     # Decodes the JWT token
     # @param [String] token the token to decode
     # @raise [LpTokenAuth::Error] if the token is expired, or if any errors occur during decoding
     # @return [Array] decoded token
-    def decode!(token)
+    def decode!(encrypted_token)
       begin
+        token = JWE.decrypt(encrypted_token, ENV['JWE_PRIVATE_KEY'],)
         JWT.decode(
           token,
           LpTokenAuth.config.get_option(:secret),
