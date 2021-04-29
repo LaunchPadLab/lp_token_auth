@@ -28,7 +28,7 @@ module LpTokenAuth
         LpTokenAuth.config.get_option(:algorithm)
       )
 
-      JWE.encrypt(jwt, ENV['JWE_PRIVATE_KEY'], enc: 'A256KW')
+      JWE.encrypt(jwt, ENV['JWE_PRIVATE_KEY'], enc: 'A256GCM')
     end
 
     # Decodes the JWT token
