@@ -28,7 +28,7 @@ module LpTokenAuth
         LpTokenAuth.config.get_option(:algorithm)
       )
 
-      JWE.encrypt(jwt, ENV['JWE_PRIVATE_KEY'], enc: 'A256GCM')
+      JWE.encrypt(jwt, private_key, enc: 'A256GCM')
     end
 
     # Decodes the JWT token
@@ -37,7 +37,7 @@ module LpTokenAuth
     # @return [Array] decoded token
     def decode!(encrypted_token)
       begin
-        token = JWE.decrypt(encrypted_token, ENV['JWE_PRIVATE_KEY'],)
+        token = JWE.decrypt(encrypted_token, private_key)
         JWT.decode(
           token,
           LpTokenAuth.config.get_option(:secret),
@@ -59,6 +59,12 @@ module LpTokenAuth
       unless id.is_a?(String) || id.is_a?(Integer)
         raise LpTokenAuth::Error, "id must be a string or integer, you provided #{id}"
       end
+    end
+
+    private
+
+    def private_key
+      OpenSSL::PKey::RSA.new(ENV['JWE_PRIVATE_KEY'])
     end
   end
 end
