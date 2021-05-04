@@ -9,7 +9,7 @@ Simple token authentication logic with JWTs for Rails apps. No baked in routing,
 * [Installation](#installation)
 * [Usage](#usage)
 * [Examples](#examples)
-* [Migration Guide](#migration guide)
+* [Migration Guide](#migration-guide)
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -48,7 +48,7 @@ Or install it yourself as:
 3. All errors will return an instance of `LpTokenAuth::Error`
 
 ## Migration Guide
-[Migration Guide](https://github.com/LaunchPadLab/lp_token_auth/blob/master/migration-guide/migration-guide.md)
+[Migration Guide](https://github.com/LaunchPadLab/lp_token_auth/blob/master/migration-guide.md)
 
 ## Examples
 ### Controller
