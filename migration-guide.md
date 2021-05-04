@@ -1,5 +1,5 @@
 # Migration Guide
-*Note: this guide assumes you are upgrading from LP Token Auth from v1 to v2.
+*Note: this guide assumes you are upgrading from LP Token Auth from v1 to v2.*
 
 This version contains the following breaking changes:
 
