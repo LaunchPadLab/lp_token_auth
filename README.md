@@ -9,7 +9,7 @@ Simple token authentication logic with JWTs for Rails apps. No baked in routing,
 * [Installation](#installation)
 * [Usage](#usage)
 * [Examples](#examples)
-* [Migration Guide] (#migration guide)
+* [Migration Guide](#migration guide)
 
 ## Installation
 Add this line to your application's Gemfile:
