@@ -48,7 +48,7 @@ Or install it yourself as:
 3. All errors will return an instance of `LpTokenAuth::Error`
 
 ## Migration Guide
-[Migration Guide](https://github.com/LaunchPadLab/lp_token_auth/blob/master/migration-guide.md)
+[Migration Guide](https://github.com/LaunchPadLab/lp_token_auth/blob/master/migration-guide/migration-guide.md)
 
 ## Examples
 ### Controller
