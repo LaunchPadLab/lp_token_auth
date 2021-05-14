@@ -64,7 +64,10 @@ module LpTokenAuth
     private
 
     def private_key
-      OpenSSL::PKey::RSA.new(ENV['JWE_PRIVATE_KEY'])
+      if ENV[JWE_PRIVATE_KEY].is_array?
+        key = ENV[JWE_PRIVATE_KEY].join("\n")
+      end
+      OpenSSL::PKey::RSA.new(key)
     end
   end
 end
