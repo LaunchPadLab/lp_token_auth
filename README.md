@@ -9,6 +9,7 @@ Simple token authentication logic with JWTs for Rails apps. No baked in routing,
 * [Installation](#installation)
 * [Usage](#usage)
 * [Examples](#examples)
+* [Migration Guide](#migration-guide)
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -45,6 +46,9 @@ Or install it yourself as:
   + `authenticate_token!(token)` - This is called by `authenticate_request!` but is available to use if you ever need to manually authenticate a token.
   + `current_user` - This returns the current user identified by `authenticate!`. It is available after logging in the user or authenticating.
 3. All errors will return an instance of `LpTokenAuth::Error`
+
+## Migration Guide
+[Migration Guide](https://github.com/LaunchPadLab/lp_token_auth/blob/master/migration-guide.md)
 
 ## Examples
 ### Controller
