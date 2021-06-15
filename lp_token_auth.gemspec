@@ -17,6 +17,6 @@ Gem::Specification.new do |s|
 
   s.add_dependency        'jwt', '>= 1.5.6'
   s.add_dependency        'jwe', '~> 0.4.0'
-  s.add_development_dependency 'rake', '~> 10.4', '>= 10.4.2'
+  s.add_development_dependency 'rake', '~> 12.3', '>= 12.3.3'
   s.add_development_dependency 'minitest', '~> 5.10', '>= 5.10.1'
 end

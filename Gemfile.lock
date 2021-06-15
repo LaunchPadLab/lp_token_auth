@@ -15,7 +15,7 @@ GEM
     jwe (0.4.0)
     jwt (2.2.3)
     minitest (5.14.4)
-    rake (10.5.0)
+    rake (12.3.3)
     simplecov (0.13.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
@@ -29,7 +29,7 @@ DEPENDENCIES
   codeclimate-test-reporter (~> 1.0.0)
   lp_token_auth!
   minitest (~> 5.10, >= 5.10.1)
-  rake (~> 10.4, >= 10.4.2)
+  rake (~> 12.3, >= 12.3.3)
   simplecov
 
 BUNDLED WITH
