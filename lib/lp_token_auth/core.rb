@@ -73,7 +73,6 @@ module LpTokenAuth
         OpenSSL::PKey::RSA.new(key)
       rescue OpenSSL::PKey::RSAError => msg
         raise LpTokenAuth::Error, 'Your private key is formatted incorrectly.'
-      end
     end
   end
 end
