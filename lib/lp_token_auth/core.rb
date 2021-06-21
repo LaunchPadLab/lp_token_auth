@@ -64,7 +64,6 @@ module LpTokenAuth
     private
 
     def private_key
-      begin
         raise LpTokenAuth::Error, 'You do not have a private key.' if ENV['JWE_PRIVATE_KEY'].blank?
 
         if ENV['JWE_PRIVATE_KEY'].is_array?
