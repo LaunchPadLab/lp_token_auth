@@ -64,7 +64,7 @@ module LpTokenAuth
     private
 
     def private_key
-        raise LpTokenAuth::Error, 'You do not have a private key.' if ENV['JWE_PRIVATE_KEY'].blank?
+        raise LpTokenAuth::Error, 'You do not have a private key.' if ENV['JWE_PRIVATE_KEY'].empty?
 
         OpenSSL::PKey::RSA.new(ENV['JWE_PRIVATE_KEY'])
       rescue OpenSSL::PKey::RSAError => msg
