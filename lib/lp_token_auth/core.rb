@@ -66,7 +66,7 @@ module LpTokenAuth
     def private_key
         raise LpTokenAuth::Error, 'You do not have a private key.' if ENV['JWE_PRIVATE_KEY'].nil?
         
-        OpenSSL::PKey::RSA.new(ENV['JWE_PRIVATE_KEY'])
+        OpenSSL::PKey::RSA.new(ENV['JWE_PRIVATE_KEY'].split("\\n").join("\n").html_safe)
       rescue OpenSSL::PKey::RSAError => msg
         raise LpTokenAuth::Error, 'Your private key is formatted incorrectly.'
     end
