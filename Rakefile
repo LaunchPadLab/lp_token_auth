@@ -6,3 +6,5 @@ end
 
 desc "Run tests"
 task :default => :test
+
+load('lib/tasks/generate_rsa.rake')

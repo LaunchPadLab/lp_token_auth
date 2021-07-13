@@ -1,4 +1,5 @@
 require 'jwt'
+require 'jwe'
 require 'lp_token_auth/error'
 
 module LpTokenAuth
@@ -21,19 +22,22 @@ module LpTokenAuth
         payload[:exp] = (Time.now + LpTokenAuth.config.get_option(:expires) * 60 * 60).to_i
       end
 
-      JWT.encode(
+      jwt = JWT.encode(
         payload,
         LpTokenAuth.config.get_option(:secret),
         LpTokenAuth.config.get_option(:algorithm)
       )
+
+      JWE.encrypt(jwt, private_key, enc: ENV['JWE_ENCRYPTION'] || 'A256GCM')
     end
 
     # Decodes the JWT token
     # @param [String] token the token to decode
     # @raise [LpTokenAuth::Error] if the token is expired, or if any errors occur during decoding
     # @return [Array] decoded token
-    def decode!(token)
+    def decode!(encrypted_token)
       begin
+        token = JWE.decrypt(encrypted_token, private_key)
         JWT.decode(
           token,
           LpTokenAuth.config.get_option(:secret),
@@ -55,6 +59,16 @@ module LpTokenAuth
       unless id.is_a?(String) || id.is_a?(Integer)
         raise LpTokenAuth::Error, "id must be a string or integer, you provided #{id}"
       end
+    end
+
+    private
+
+    def private_key
+        raise LpTokenAuth::Error, 'You do not have a private key.' if ENV['JWE_PRIVATE_KEY'].nil?
+        
+        OpenSSL::PKey::RSA.new(ENV['JWE_PRIVATE_KEY'].split("\\n").join("\n").html_safe)
+      rescue OpenSSL::PKey::RSAError => msg
+        raise LpTokenAuth::Error, 'Your private key is formatted incorrectly.'
     end
   end
 end

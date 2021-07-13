@@ -1,24 +1,26 @@
 PATH
   remote: .
   specs:
-    lp_token_auth (0.3.0)
+    lp_token_auth (1.0.0)
+      jwe (~> 0.4.0)
       jwt (>= 1.5.6)
 
 GEM
   remote: https://rubygems.org/
   specs:
-    codeclimate-test-reporter (1.0.5)
-      simplecov
+    codeclimate-test-reporter (1.0.9)
+      simplecov (<= 0.13)
     docile (1.1.5)
-    json (2.0.3)
-    jwt (1.5.6)
-    minitest (5.10.2)
-    rake (10.5.0)
+    json (2.5.1)
+    jwe (0.4.0)
+    jwt (2.2.3)
+    minitest (5.14.4)
+    rake (12.3.3)
     simplecov (0.13.0)
       docile (~> 1.1.0)
       json (>= 1.8, < 3)
       simplecov-html (~> 0.10.0)
-    simplecov-html (0.10.0)
+    simplecov-html (0.10.2)
 
 PLATFORMS
   ruby
@@ -27,8 +29,8 @@ DEPENDENCIES
   codeclimate-test-reporter (~> 1.0.0)
   lp_token_auth!
   minitest (~> 5.10, >= 5.10.1)
-  rake (~> 10.4, >= 10.4.2)
+  rake (~> 12.3, >= 12.3.3)
   simplecov
 
 BUNDLED WITH
-   1.16.1
+   2.2.17
