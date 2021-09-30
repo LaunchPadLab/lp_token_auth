@@ -43,7 +43,7 @@ describe '#decode!' do
   end
 
   it 'raises when expired' do
-    token = LpTokenAuth.issue_token(@id, exp: Time.now - 10000)
+    token = LpTokenAuth.issue_token(@id, exp: (Time.now - 10000).to_i)
     assert_raises LpTokenAuth::Error do
       LpTokenAuth.decode!(token)
     end
