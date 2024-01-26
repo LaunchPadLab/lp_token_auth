@@ -19,4 +19,7 @@ LpTokenAuth.config do |config|
   # default: [:cookie]
   #
   config.token_transport = [:cookie]
+
+  # Where to find the required JWE_PRIVATE_KEY value, defaults to ENV['JWE_PRIVATE_KEY']
+  # config.jwe_private_key = Rails.application.credentials.jwe_private_key
 end

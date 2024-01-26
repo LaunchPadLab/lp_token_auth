@@ -9,7 +9,7 @@ module LpTokenAuth
     # * `expires` is an integer corresponding to the number of hours that the token is active
     # * `secret` is a string corresponding to the secret key used when encrypting the token
     # * `token_transport` is a string indicating where to include the token in the HTTP response
-    attr_accessor :algorithm, :expires, :secret, :token_transport
+    attr_accessor :algorithm, :expires, :secret, :token_transport, :jwe_private_key
 
     # Provides default values to token options
     DEFAULT_VALUES = {

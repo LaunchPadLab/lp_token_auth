@@ -64,11 +64,12 @@ module LpTokenAuth
     private
 
     def private_key
-        raise LpTokenAuth::Error, 'You do not have a private key.' if ENV['JWE_PRIVATE_KEY'].nil?
-        
-        OpenSSL::PKey::RSA.new(ENV['JWE_PRIVATE_KEY'].split("\\n").join("\n"))
-      rescue OpenSSL::PKey::RSAError => msg
-        raise LpTokenAuth::Error, 'Your private key is formatted incorrectly.'
+      key = LpTokenAuth.config.jwe_private_key || ENV['JWE_PRIVATE_KEY']
+      raise LpTokenAuth::Error, 'You do not have a private key.' if key.nil?
+
+      OpenSSL::PKey::RSA.new(key.split("\\n").join("\n"))
+    rescue OpenSSL::PKey::RSAError => msg
+      raise LpTokenAuth::Error, 'Your private key is formatted incorrectly.'
     end
   end
 end
