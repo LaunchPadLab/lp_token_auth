@@ -64,7 +64,7 @@ module LpTokenAuth
     private
 
     def private_key
-      key = LpTokenAuth.config.jwe_private_key || ENV['JWE_PRIVATE_KEY']
+      key = LpTokenAuth.config.get_option(:jwe_private_key)
       raise LpTokenAuth::Error, 'You do not have a private key.' if key.nil?
 
       OpenSSL::PKey::RSA.new(key.split("\\n").join("\n"))

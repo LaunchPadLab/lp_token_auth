@@ -16,6 +16,7 @@ module LpTokenAuth
       algorithm: 'HS512',
       expires: (7 * 24),
       token_transport: [:cookie],
+      jwe_private_key: ENV['JWE_PRIVATE_KEY']
     }
 
     # Retrieves value for token option, either as set by the application, or the default
