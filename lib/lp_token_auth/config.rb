@@ -9,14 +9,15 @@ module LpTokenAuth
     # * `expires` is an integer corresponding to the number of hours that the token is active
     # * `secret` is a string corresponding to the secret key used when encrypting the token
     # * `token_transport` is a string indicating where to include the token in the HTTP response
-    attr_accessor :algorithm, :expires, :secret, :token_transport, :jwe_private_key
+    attr_accessor :algorithm, :expires, :secret, :token_transport, :jwe_private_key, :jwe_encryption
 
     # Provides default values to token options
     DEFAULT_VALUES = {
       algorithm: 'HS512',
       expires: (7 * 24),
       token_transport: [:cookie],
-      jwe_private_key: ENV['JWE_PRIVATE_KEY']
+      jwe_private_key: ENV['JWE_PRIVATE_KEY'],
+      jwe_encryption: 'A256GCM'
     }
 
     # Retrieves value for token option, either as set by the application, or the default
