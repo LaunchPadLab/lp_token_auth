@@ -28,11 +28,17 @@ module LpTokenAuth
     # @raise [LpTokenAuth::Error] if the option has not been set by the application and a default value does not exist
     # @return [String,Integer] the value of the token option
     def get_option(key)
-      default = DEFAULT_VALUES[key]
-      default = default.call if default.is_a?(Proc)
-      option = send(key) || default
+      option = send(key) || get_default_value(key)
       raise LpTokenAuth::Error, "Missing config option value: #{key}" unless option
       option
+    end
+
+    # Retrieves default value for a token option
+    # @param [Symbol] key the token option name
+    # @return [String,Integer] the value of the token option
+    def get_default_value(key)
+      default = DEFAULT_VALUES[key]
+      default.is_a?(Proc) ? default.call : default
     end
   end
 end
