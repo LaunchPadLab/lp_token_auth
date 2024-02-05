@@ -19,4 +19,14 @@ LpTokenAuth.config do |config|
   # default: [:cookie]
   #
   config.token_transport = [:cookie]
+
+  # Where to find the required JWE_PRIVATE_KEY value
+  # default: ENV['JWE_PRIVATE_KEY']
+  #
+  config.jwe_private_key = ENV['JWE_PRIVATE_KEY']
+
+  # The JWE encryption algorithm to use
+  # default: 'A256GCM'
+  #
+  config.jwe_encryption = 'A256GCM'
 end
